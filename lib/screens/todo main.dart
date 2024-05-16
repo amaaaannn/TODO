@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 import 'package:anonymous/SERVICES/TODO_SERVICES.dart';
 import 'package:anonymous/screens/ADD%20TASK.dart';
@@ -31,19 +31,26 @@ class _todoState extends State<todo> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: todoList.length,
+      body: todo01List.length==0?Center(
+          child:
+Image(image: NetworkImage("https://cdn.icon-icons.com/icons2/3251/PNG/512/task_list_square_add_regular_icon_203206.png"),)
+
+
+      )
+
+          :  ListView.builder(
+        itemCount: todo01List.length,
         itemBuilder: (context, index) => Card(
           child: ListTile(
             title: Text(
-              todoList[index]['title'],
+              todo01List[index]['title'],
               style: TextStyle(
                   fontSize: 24,
                   color: Color(0xffc8b6ff),
                   fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-                todoList[index]['detail'],
+                todo01List[index]['detail'],
               style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             trailing: Row(
@@ -53,14 +60,18 @@ class _todoState extends State<todo> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EDIT()),
+                      MaterialPageRoute(builder: (context) => EDIT(title:  todo01List[index]['title'],detail:todo01List[index]['detail'],
+                        index: index,
+
+                      )),
                     );
                   },
                   icon: Icon(Icons.mode_edit_outline_outlined),
                 ),
                 IconButton(
-                  onPressed: () {  todoList.removeAt(index);
-                  print(todoList);
+                  onPressed: () {
+                    delete(index);
+                    print(todo01List);
                   setState(() {
 
                   });},
@@ -83,7 +94,10 @@ class _todoState extends State<todo> {
               context,
               MaterialPageRoute(
                 builder: (context) => ADDTASK(),
-              ));
+              )
+          ).then((value) => setState(() {
+
+          }));
         },
         child: Icon(Icons.add),
       ),

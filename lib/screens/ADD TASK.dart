@@ -1,4 +1,8 @@
+
+
+import 'package:anonymous/SERVICES/TODO_SERVICES.dart';
 import 'package:flutter/material.dart';
+
 
 class ADDTASK extends StatelessWidget {
    ADDTASK({super.key});
@@ -29,9 +33,19 @@ TextEditingController gwenstacy=TextEditingController();
 
           ElevatedButton(
             
-            onPressed: (){ print("popped");
+            onPressed: (){   Map<String,dynamic>todo01= {
+              'title': noname.text,
+              'detail':gwenstacy.text,
+            };
+              amn(todo01);
+
+
+
+              print(todo01);
+              print("popped");
               print(noname.text);
               print(gwenstacy.text);
+
               Navigator.pop(context);},
             style: ElevatedButton.styleFrom(
               fixedSize: Size(MediaQuery.of(context).size.width
